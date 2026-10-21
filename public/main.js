@@ -1,11 +1,17 @@
 var thumbUp = document.getElementsByClassName("fa-thumbs-up");
 var trash = document.getElementsByClassName("fa-trash");
+var thumbDown = document.getElementsByClassName("fa-thumbs-down")
 
+
+
+
+
+// for thumbs up closest 
 Array.from(thumbUp).forEach(function(element) {
       element.addEventListener('click', function(){
-        const name = this.parentNode.parentNode.childNodes[1].innerText
-        const msg = this.parentNode.parentNode.childNodes[3].innerText
-        const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
+        const name = this.closest("li").querySelector("span.name").innerText
+        const msg = this.closest("li").querySelector("span.msg").innerText
+        const thumbUp = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText)
         fetch('messages', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
@@ -24,6 +30,38 @@ Array.from(thumbUp).forEach(function(element) {
         })
       });
 });
+
+//thumbs Down 
+Array.from(thumbDown).forEach(function(element) {
+      element.addEventListener('click', function(){
+        const name = this.closest("li").querySelector("span.name").innerText
+        const msg = this.closest("li").querySelector("span.msg").innerText
+        const thumbDown = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText)
+        fetch('messages', {
+          method: 'put',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            'name': name,
+            'msg': msg,
+            'thumbDown':thumbDown
+          })
+        })
+        .then(response => {
+          if (response.ok) return response.json()
+        })
+        .then(data => {
+          console.log(data)
+          window.location.reload(true)
+        })
+      });
+});
+
+/*mathematic difference 1 
++1 -> -1 
+2 clickls of thumbsDown -> -1 
+
+
+*/
 
 Array.from(trash).forEach(function(element) {
       element.addEventListener('click', function(){

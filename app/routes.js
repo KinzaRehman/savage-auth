@@ -35,12 +35,12 @@ module.exports = function(app, passport, db) {
         res.redirect('/profile')
       })
     })
-
+//thumbs up function 
     app.put('/messages', (req, res) => {
       db.collection('messages')
       .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
         $set: {
-          thumbUp:req.body.thumbUp + 1
+          thumbUp:(req.body.thumbUp ? req.body.thumbUp+1 : req.body.thumbDown-1)
         }
       }, {
         sort: {_id: -1},
@@ -50,6 +50,22 @@ module.exports = function(app, passport, db) {
         res.send(result)
       })
     })
+
+/*thumbs down fucntion 
+
+terinary this is just comparing 
+$inc: { 
+  thumbUp: (req.body.thumbUp ? +1 : -1)
+}
+
+
+*/
+
+
+
+
+
+
 
     app.delete('/messages', (req, res) => {
       db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
