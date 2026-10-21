@@ -9,15 +9,17 @@ var thumbDown = document.getElementsByClassName("fa-thumbs-down")
 // for thumbs up closest 
 Array.from(thumbUp).forEach(function(element) {
       element.addEventListener('click', function(){
-        const name = this.closest("li").querySelector("span.name").innerText
-        const msg = this.closest("li").querySelector("span.msg").innerText
+        const id = this.parentNode.parentNode.childNodes[1].dataset.userId
+       //const name = this.closest("li").querySelector("span.name").innerText
+       // const msg = this.closest("li").querySelector("span.msg").innerText
         const thumbUp = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText)
         fetch('messages', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
-            'name': name,
-            'msg': msg,
+            'id': id,
+           // 'name': name,
+            //'msg': msg,
             'thumbUp':thumbUp
           })
         })
@@ -34,15 +36,18 @@ Array.from(thumbUp).forEach(function(element) {
 //thumbs Down 
 Array.from(thumbDown).forEach(function(element) {
       element.addEventListener('click', function(){
-        const name = this.closest("li").querySelector("span.name").innerText
-        const msg = this.closest("li").querySelector("span.msg").innerText
+        const id = this.parentNode.parentNode.childNodes[1].dataset.userId
+
+      //  const name = this.closest("li").querySelector("span.name").innerText
+       // const msg = this.closest("li").querySelector("span.msg").innerText
         const thumbDown = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText)
         fetch('messages', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
-            'name': name,
-            'msg': msg,
+           'id': id,
+           // 'name': name,
+           // 'msg': msg,
             'thumbDown':thumbDown
           })
         })
@@ -65,16 +70,19 @@ Array.from(thumbDown).forEach(function(element) {
 
 Array.from(trash).forEach(function(element) {
       element.addEventListener('click', function(){
-        const name = this.parentNode.parentNode.childNodes[1].innerText
-        const msg = this.parentNode.parentNode.childNodes[3].innerText
-        fetch('messages', {
+        const id = this.parentNode.parentNode.childNodes[1].dataset.userId
+
+       // const name = this.parentNode.parentNode.childNodes[1].innerText
+       // const msg = this.parentNode.parentNode.childNodes[3].innerText
+        fetch('deletemessages', {
           method: 'delete',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            'name': name,
-            'msg': msg
+            'id': id,
+           // 'name': name,
+            //'msg': msg
           })
         }).then(function (response) {
           window.location.reload()

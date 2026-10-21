@@ -1,4 +1,4 @@
-module.exports = function(app, passport, db) {
+module.exports = function(app, passport, db, ObjectId) {
 
 // normal routes ===============================================================
 
@@ -38,7 +38,7 @@ module.exports = function(app, passport, db) {
 //thumbs up function 
     app.put('/messages', (req, res) => {
       db.collection('messages')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
+      .findOneAndUpdate({_id:new ObjectId(req.body.id)}, {
         $set: {
           thumbUp:(req.body.thumbUp ? req.body.thumbUp+1 : req.body.thumbDown-1)
         }
@@ -67,8 +67,8 @@ $inc: {
 
 
 
-    app.delete('/messages', (req, res) => {
-      db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+    app.delete('/deletemessages', (req, res) => {
+      db.collection('messages').findOneAndDelete({_id:new ObjectId(req.body.id)}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })
