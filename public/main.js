@@ -5,14 +5,13 @@ var thumbDown = document.getElementsByClassName("fa-thumbs-down")
 
 
 
-
 // for thumbs up closest 
 Array.from(thumbUp).forEach(function(element) {
       element.addEventListener('click', function(){
         const id = this.parentNode.parentNode.childNodes[1].dataset.userId
        //const name = this.closest("li").querySelector("span.name").innerText
        // const msg = this.closest("li").querySelector("span.msg").innerText
-        const thumbUp = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText)
+        const thumbUp = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText) || 0
         fetch('messages', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
@@ -40,7 +39,7 @@ Array.from(thumbDown).forEach(function(element) {
 
       //  const name = this.closest("li").querySelector("span.name").innerText
        // const msg = this.closest("li").querySelector("span.msg").innerText
-        const thumbDown = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText)
+        const thumbDown = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText) || 0
         fetch('messages', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
