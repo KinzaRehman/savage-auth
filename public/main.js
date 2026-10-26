@@ -1,3 +1,4 @@
+
 var thumbUp = document.getElementsByClassName("fa-thumbs-up");
 var trash = document.getElementsByClassName("fa-trash");
 var thumbDown = document.getElementsByClassName("fa-thumbs-down")
@@ -11,7 +12,7 @@ Array.from(thumbUp).forEach(function(element) {
         const id = this.parentNode.parentNode.childNodes[1].dataset.userId
        //const name = this.closest("li").querySelector("span.name").innerText
        // const msg = this.closest("li").querySelector("span.msg").innerText
-        const thumbUp = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText) || 0
+       // const thumbUp = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText) || 0
         fetch('messages', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
@@ -19,7 +20,7 @@ Array.from(thumbUp).forEach(function(element) {
             'id': id,
            // 'name': name,
             //'msg': msg,
-            'thumbUp':thumbUp
+            'thumbUp': 1
           })
         })
         .then(response => {
@@ -39,7 +40,7 @@ Array.from(thumbDown).forEach(function(element) {
 
       //  const name = this.closest("li").querySelector("span.name").innerText
        // const msg = this.closest("li").querySelector("span.msg").innerText
-        const thumbDown = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText) || 0
+       // const thumbDown = parseFloat(this.closest("li").querySelector("span.thumbUp").innerText) || 0
         fetch('messages', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
@@ -47,7 +48,7 @@ Array.from(thumbDown).forEach(function(element) {
            'id': id,
            // 'name': name,
            // 'msg': msg,
-            'thumbDown':thumbDown
+            'thumbDown': 1
           })
         })
         .then(response => {

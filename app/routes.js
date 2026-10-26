@@ -41,20 +41,20 @@ module.exports = function(app, passport, db, ObjectId) {
       })
     })
 //thumbs up function 
-    app.put('/messages', (req, res) => {
-      db.collection('messages')
-      .findOneAndUpdate({_id:new ObjectId(req.body.id)}, {
-        $set: {
-          thumbUp:(req.body.thumbUp ? req.body.thumbUp+1 : req.body.thumbDown-1)
-        }
-      }, {
-        sort: {_id: -1},
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
+   app.put('/messages', (req, res) => {
+  db.collection('messages')
+    .findOneAndUpdate({_id: new ObjectId(req.body.id)}, {
+      $inc: {
+        thumbUp: req.body.thumbUp !== undefined ? 1 : -1
+      }
+    }, {
+      sort: {_id: -1},
+      upsert: false
+    }, (err, result) => {
+      if (err) return res.send(err)
+      res.send(result)
     })
+})
 
 /*thumbs down fucntion 
 
